@@ -1,0 +1,60 @@
+<div class="container">
+  <h1>Travel Planner</h1>
+
+  <div class="card">
+    <div class="autocomplete">
+      <label>City</label>
+      <input type="text" [ngModel]="query" (ngModelChange)="onQuery($event)" placeholder="Start typing (e.g., Rochester, Paris, Mumbai)">
+      <div class="dropdown" *ngIf="showDropdown">
+        <div *ngFor="let s of suggestions" (click)="pickSuggestion(s)">
+          {{s.label}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedCity" class="small" style="margin-top:8px;">
+      Selected: <b>{{selectedCity?.label}}</b> ({{selectedCity?.lat}}, {{selectedCity?.lon}})
+    </div>
+  </div>
+
+  <div class="row" *ngIf="selectedCity">
+    <div class="card">
+      <h2>Restaurants</h2>
+      <div class="list">
+        <div class="item" *ngFor="let r of restaurants">
+          <div><b>{{r.name || '(Unnamed)'}}</b></div>
+          <div class="small">{{r.address}} | {{fmtDist(r.distanceMeters)}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Hotels</h2>
+      <div class="list">
+        <div class="item" *ngFor="let h of hotels">
+          <div><b>{{h.name || '(Unnamed)'}}</b></div>
+          <div class="small">{{h.address}} | {{fmtDist(h.distanceMeters)}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Country & Money</h2>
+      <div *ngIf="country">
+        <div><b>{{country.name}}</b> {{country.emoji}}</div>
+        <div class="small">Continent: {{country.continent}} | Currency: {{country.currency}}</div>
+        <div class="small">Capital: {{country.capital}} | Languages: {{country.languages?.join(', ')}}</div>
+      </div>
+      <div style="margin-top:12px;">
+        <label>Amount</label>
+        <input type="number" [(ngModel)]="fxAmount" style="width:120px;">
+        <label>   From</label>
+        <input type="text" [(ngModel)]="fxFrom" style="width:70px;">
+        <label>   To USD</label>
+        <button (click)="convert()">Get Rate & Convert</button>
+      </div>
+      <div *ngIf="fx" class="small" style="margin-top:8px;">
+        Rate: {{fx.rate}} | Result: <b>{{fx.result}}</b>
+      </div>
+    </div>
+  </div>
+</div>

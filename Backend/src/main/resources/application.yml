@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+app:
+  geoapify:
+    api-key: 820d45fc1cb24557bbd56d8ed033df47
+  exrate:
+    api-key: b88f90638d28d21dd46e1001
+
+spring:
+  codec:
+    max-in-memory-size: 5MB
