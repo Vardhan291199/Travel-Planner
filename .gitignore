@@ -1,3 +1,7 @@
+# Java specific
+target/
+.idea/
+
 # Angular specific
 /dist/
 /out-tsc/
